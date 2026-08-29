@@ -1,6 +1,7 @@
 name: Segundo pipeline JavaScript
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
