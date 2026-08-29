@@ -7,9 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  testes-python:
+  testesoma:
     runs-on: ubuntu-latest
-
     steps:
       - name: Baixar código do repositório
         uses: actions/checkout@v4
@@ -18,16 +17,66 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
 
       - name: Instalar dependências
         run: python -m pip install --upgrade pip pytest
 
-      - name: Executar testes
-        run: python -m pytest -q
+      - name: Executar teste de soma
+        run: python -m pytest -q test_soma.py
+
+  testesubtracao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Executar teste de subtração
+        run: python -m pytest -q test_sub.py
+
+  testemultiplicacao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Executar teste de multiplicação
+        run: python -m pytest -q test_mult.py
+
+  testedivisao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Executar teste de divisão
+        run: python -m pytest -q test_div.py
 
   deploy:
-    needs: testes-python
+    needs: [testesoma, testesubtracao, testemultiplicacao, testedivisao]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
