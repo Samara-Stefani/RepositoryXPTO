@@ -2,18 +2,6 @@ name: Primeiro Pipeline Python
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'app.py'
-      - 'test_*.py'
-      - '.github/workflows/pipeline.yml'
-  pull_request:
-    branches: [main]
-    paths:
-      - 'app.py'
-      - 'test_*.py'
-      - '.github/workflows/pipeline.yml'
 
 jobs:
   testesoma:
