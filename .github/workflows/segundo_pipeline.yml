@@ -4,8 +4,18 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'app.js'
+      - 'test_*.js'
+      - 'package.json'
+      - '.github/workflows/segundo_pipeline.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'app.js'
+      - 'test_*.js'
+      - 'package.json'
+      - '.github/workflows/segundo_pipeline.yml'
 
 jobs:
 
