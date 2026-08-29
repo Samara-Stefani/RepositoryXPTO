@@ -5,7 +5,7 @@ on:
       branches: [main]
 
 jobs:
-   teste:
+  testesoma:
       runs-on: ubuntu-latest
 
       steps:
@@ -21,11 +21,67 @@ jobs:
         run: pip install pytest
 
       - name: Execução de Testes
-        run: pytest
+        run: pytest teste_soma.py
         
+  
+  testesubtracao:
+      runs-on: ubuntu-latest
 
-   deploy:
-      needs: teste
+      steps:
+      - name: Baixar Código do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Dependências
+        run: pip install pytest
+
+      - name: Execução de Testes
+        run: pytest teste_sub.py
+
+  testemultiplicacao:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Baixar Código do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Dependências
+        run: pip install pytest
+
+      - name: Execução de Testes
+        run: pytest teste_mult.py
+
+  testedivisao:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Baixar Código do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Dependências
+        run: pip install pytest
+
+      - name: Execução de Testes
+        run: pytest teste_div.py
+
+
+
+  deploy:
+      needs: [testesoma, testesubtracao, testemultiplicacao, testedivisao]
       runs-on: ubuntu-latest
       steps:
       - run: echo "Deploy realizado com sucesso!"
