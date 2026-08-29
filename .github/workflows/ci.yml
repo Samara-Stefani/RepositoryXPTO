@@ -1,0 +1,103 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Executar flake8
+        run: flake8 app.py test_soma.py test_sub.py test_mult.py test_div.py
+
+  unit-tests:
+    name: Testes Unitários
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Executar testes
+        run: pytest -q
+
+  coverage:
+    name: Cobertura de Código
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Verificar cobertura mínima
+        run: pytest --cov=app --cov-report=term-missing --cov-fail-under=80
+
+  security:
+    name: Análise de Segurança
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Verificar vulnerabilidades com Bandit
+        run: bandit -r app.py test_soma.py test_sub.py test_mult.py test_div.py -ll
+
+  failure-demo:
+    name: Simulação de Falhas
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Exibir cenário de falha
+        run: |
+          echo "Simula cenários de falha do CI:"
+          echo "- Erro de lint"
+          echo "- Teste unitário reprovado"
+          echo "- Cobertura abaixo do mínimo"
+          echo "- Chave de API exposta"
