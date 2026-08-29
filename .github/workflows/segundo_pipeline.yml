@@ -32,10 +32,10 @@ jobs:
           node-version: '22'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       - name: Executar teste de soma
-        run: npx jest --runInBand --runTestsByPath test_soma.js
+        run: node ./node_modules/jest/bin/jest.js --runInBand --runTestsByPath test_soma.js
 
 
   testesubtracao:
@@ -51,10 +51,10 @@ jobs:
           node-version: '22'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       - name: Executar teste de subtração
-        run: npx jest --runInBand --runTestsByPath test_sub.js
+        run: node ./node_modules/jest/bin/jest.js --runInBand --runTestsByPath test_sub.js
 
 
   testemultiplicacao:
@@ -70,10 +70,10 @@ jobs:
           node-version: '22'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       - name: Executar teste de multiplicação
-        run: npx jest --runInBand --runTestsByPath test_mult.js
+        run: node ./node_modules/jest/bin/jest.js --runInBand --runTestsByPath test_mult.js
 
 
   testedivisao:
@@ -89,10 +89,10 @@ jobs:
           node-version: '22'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       - name: Executar teste de divisão
-        run: npx jest --runInBand --runTestsByPath test_div.js
+        run: node ./node_modules/jest/bin/jest.js --runInBand --runTestsByPath test_div.js
 
 
   deploy:
