@@ -1,4 +1,4 @@
-name: Primeiro pipeline JavaScript
+name: Segundo pipeline JavaScript
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Executar teste de soma
-        run: npx jest test_soma.js
+        run: npx jest --runInBand --runTestsByPath test_soma.js
 
 
   testesubtracao:
@@ -43,7 +43,7 @@ jobs:
         run: npm install
 
       - name: Executar teste de subtração
-        run: npx jest test_sub.js
+        run: npx jest --runInBand --runTestsByPath test_sub.js
 
 
   testemultiplicacao:
@@ -62,7 +62,7 @@ jobs:
         run: npm install
 
       - name: Executar teste de multiplicação
-        run: npx jest test_mult.js
+        run: npx jest --runInBand --runTestsByPath test_mult.js
 
 
   testedivisao:
@@ -81,7 +81,7 @@ jobs:
         run: npm install
 
       - name: Executar teste de divisão
-        run: npx jest test_div.js
+        run: npx jest --runInBand --runTestsByPath test_div.js
 
 
   deploy:
