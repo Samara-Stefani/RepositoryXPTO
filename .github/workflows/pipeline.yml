@@ -56,7 +56,7 @@ jobs:
       - name: Executar testes
         run: python -m pytest -q
 
-  testemultiplicacao:
+  testemultiplica:
     runs-on: ubuntu-latest
     steps:
       - name: Baixar código do repositório
