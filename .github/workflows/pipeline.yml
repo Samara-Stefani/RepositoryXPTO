@@ -1,7 +1,8 @@
 name: Primeiro Pipeline Python e qualidade
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs:
   testesoma:
