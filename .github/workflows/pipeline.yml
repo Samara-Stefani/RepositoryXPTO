@@ -19,9 +19,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{matrix.python-version}}
+          cache: 'pip'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de soma
         run: python -m pytest -q test_soma.py
@@ -38,7 +39,7 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de subtração
         run: python -m pytest -q test_sub.py
@@ -55,7 +56,7 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de multiplicação
         run: python -m pytest -q test_mult.py
@@ -72,7 +73,7 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de divisão
         run: python -m pytest -q test_div.py
@@ -83,4 +84,3 @@ jobs:
     steps:
       - name: Deploy
         run: echo "Deploy realizado com sucesso!"
-                
