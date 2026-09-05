@@ -1,8 +1,7 @@
 name: Primeiro Pipeline Python e qualidade
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   testesoma:
@@ -25,8 +24,8 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Executar teste de soma
-        run: python -m pytest -q test_soma.py
+      - name: Executar testes
+        run: python -m pytest -q
 
   testesubtracao:
     runs-on: ubuntu-latest
@@ -42,8 +41,8 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Executar teste de subtração
-        run: python -m pytest -q test_sub.py
+      - name: Executar testes
+        run: python -m pytest -q
 
   testemultiplicacao:
     runs-on: ubuntu-latest
@@ -59,8 +58,8 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Executar teste de multiplicação
-        run: python -m pytest -q test_mult.py
+      - name: Executar testes
+        run: python -m pytest -q
 
   testedivisao:
     runs-on: ubuntu-latest
@@ -76,8 +75,8 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Executar teste de divisão
-        run: python -m pytest -q test_div.py
+      - name: Executar testes
+        run: python -m pytest -q
 
   deploy:
     needs: [testesoma, testesubtracao, testemultiplicacao, testedivisao]
