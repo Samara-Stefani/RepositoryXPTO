@@ -64,7 +64,7 @@ jobs:
           run: pip install -r requirements.txt
 
         - name: Executar teste de soma
-          run: python -m pytest testPY/test_soma.py
+          run: python -m pytest test_soma.py
 
     Deploy:
         needs: [Teste]
