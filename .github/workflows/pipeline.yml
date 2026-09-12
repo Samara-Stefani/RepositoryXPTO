@@ -1,30 +1,55 @@
-name: Primeiro Pipeline Python
+name: Primeira pipeline Python
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+
+env:
+  PYTHONPATH: .
 
 jobs:
-  testesoma:
-    runs-on: ubuntu-latest
+
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
     steps:
-      - name: Baixar código do repositório
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0  
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+          
+  testesoma:
+    strategy: 
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.11', '3.12']
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de soma
-        run: python -m pytest -q test_soma.py
+        run: python -m pytest testPY/test_soma.py
 
-  testesubtracao:
+  testesub:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Baixar código do repositório
+      - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
       - name: Configurar Python
@@ -33,15 +58,16 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de subtração
-        run: python -m pytest -q test_sub.py
+        run: python -m pytest testPY/test_sub.py
 
-  testemultiplicacao:
+  testemult:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Baixar código do repositório
+      - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
       - name: Configurar Python
@@ -50,15 +76,16 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de multiplicação
-        run: python -m pytest -q test_mult.py
+        run: python -m pytest testPY/test_mult.py
 
-  testedivisao:
+  testediv:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Baixar código do repositório
+      - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
       - name: Configurar Python
@@ -67,15 +94,16 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar dependências
-        run: python -m pip install --upgrade pip pytest
+        run: pip install -r requirements.txt
 
       - name: Executar teste de divisão
-        run: python -m pytest -q test_div.py
+        run: python -m pytest testPY/test_div.py
+
+
 
   deploy:
-    needs: [testesoma, testesubtracao, testemultiplicacao, testedivisao]
+    needs: [testesoma, testesub, testemult, testediv]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
         run: echo "Deploy realizado com sucesso!"
-                
